@@ -34,7 +34,6 @@ void MakeLine(int n) {
 }
 
 int main() {
-
   int n = 0;
   std::cin >> n;
   MakeLine(n);
