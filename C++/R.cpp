@@ -8,7 +8,7 @@ struct Node {
 
 struct Stack {
   Node *head;
-  int size;
+  int size = 0;
 };
 
 void Push(Stack &stack, int x) {
@@ -47,11 +47,7 @@ void Pop(Stack &stack) {
   stack.head = tmp_ptr;
 }
 
-int main() {
-  char exprassion[100];
-  std::cin.getline(exprassion, 100);
-  Stack stack;
-  size_t exp_len = strlen(exprassion);
+void CountExprassion(Stack &stack, char *exprassion, const size_t exp_len) {
   for (int i = 0; i < static_cast<int>(exp_len); ++i) {
     if (isdigit(exprassion[i])) {
       int arr[100];
@@ -88,6 +84,14 @@ int main() {
       Push(stack, tmp);
     }
   }
+}
+
+int main() {
+  char exprassion[100];
+  std::cin.getline(exprassion, 100);
+  Stack stack;
+  size_t exp_len = strlen(exprassion);
+  CountExprassion(stack, exprassion, exp_len);
   std::cout << Back(stack);
   while (stack.size != 0) {
     Pop(stack);
