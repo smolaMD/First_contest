@@ -30,6 +30,34 @@ void CountVert(char **arr, const int &n, const int &m, int *vert_ind, int &v) {
   }
 }
 
+int DefineType(int h, int v, int n, int m, int *hor_ind, int *vert_ind) {
+  if (h > 0 && v > 0) {
+    return 0;
+  }
+  if (h > 1 && v == 0) {
+    if (m >= hor_ind[1] - hor_ind[0]) {
+      return 1;
+    }
+    return 3;
+  }
+  if (h == 1 && v == 0) {
+    return 3;
+  }
+  if (h == 0 && v > 1) {
+    if (n >= vert_ind[1] - vert_ind[0]) {
+      return 2;
+    }
+    return 3;
+  }
+  if (h == 0 && v == 1) {
+    return 3;
+  }
+  if (h == 0 && v == 0) {
+    return 3;
+  }
+  return 3;
+}
+
 int main() {
   int n = 0;
   int m = 0;
@@ -53,27 +81,8 @@ int main() {
   int v = 0;
   CountHor(arr, n, m, hor_ind, h);
   CountVert(arr, n, m, vert_ind, v);
-  if (h > 0 && v > 0) {
-    std::cout << "Square";
-  } else if (h > 1 && v == 0) {
-    if (m >= hor_ind[1] - hor_ind[0]) {
-      std::cout << "Line";
-    } else {
-      std::cout << "?";
-    }
-  } else if (h == 1 && v == 0) {
-    std::cout << "?";
-  } else if (h == 0 && v > 1) {
-    if (n >= vert_ind[1] - vert_ind[0]) {
-      std::cout << "Vertical line";
-    } else {
-      std::cout << "?";
-    }
-  } else if (h == 0 && v == 1) {
-    std::cout << "?";
-  } else if (h == 0 && v == 0) {
-    std::cout << "?";
-  }
+  const char types[4][20] = {"Square", "Line", "Vertical line", "?"};
+  std::cout << types[DefineType(h, v, n, m, hor_ind, vert_ind)];
   for (int i = 0; i < n; ++i) {
     delete[] arr[i];
   }
