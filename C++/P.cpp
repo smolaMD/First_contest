@@ -88,20 +88,7 @@ int Back(Deque &deque) {
   return deque.back->value;
 }
 
-int main() {
-  Deque deque1;
-  Deque deque2;
-  for (int i = 0; i < 5; ++i) {
-    int value = 0;
-    std::cin >> value;
-    PushBack(deque1, value);
-  }
-  for (int i = 0; i < 5; ++i) {
-    int value = 0;
-    std::cin >> value;
-    PushBack(deque2, value);
-  }
-  int cnt = 0;
+bool Game(Deque &deque1, Deque &deque2, int &cnt) {
   bool flag = true;
   while (deque1.size != 0 && deque2.size != 0) {
     if ((Front(deque1) > Front(deque2) && (Front(deque1) - Front(deque2) != 9)) ||
@@ -123,10 +110,27 @@ int main() {
     ++cnt;
     if (cnt == 1000000) {
       flag = false;
-      break;
+      return flag;
     }
   }
-  if (flag) {
+  return flag;
+}
+
+int main() {
+  Deque deque1;
+  Deque deque2;
+  for (int i = 0; i < 5; ++i) {
+    int value = 0;
+    std::cin >> value;
+    PushBack(deque1, value);
+  }
+  for (int i = 0; i < 5; ++i) {
+    int value = 0;
+    std::cin >> value;
+    PushBack(deque2, value);
+  }
+  int cnt = 0;
+  if (Game(deque1, deque2, cnt)) {
     if (deque1.size == 0) {
       std::cout << "second " << cnt;
     } else if (deque2.size == 0) {
